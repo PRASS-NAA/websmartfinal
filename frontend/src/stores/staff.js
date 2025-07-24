@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
 
 export const useGarageAppointments = defineStore('garageAppointments', {
   state: () => ({
     appointments: [],
     loading: false,
-    error: null 
+    error: null
   }),
 
   actions: {
@@ -13,31 +14,32 @@ export const useGarageAppointments = defineStore('garageAppointments', {
       this.error = null
 
       try {
-        const res = await fetch('/api/staff/appointments') // Dummy URL
-        if (!res.ok) throw new Error('Failed to fetch')
-
-        const data = await res.json()
-        this.appointments = data
+        console.log("hi")
+        const res = await axios.get('/appointments')
+        this.appointments = res.data
+        console.log("hhhhh", this.appointments)
       } catch (err) {
-        this.error = err.message || 'Error'
+        this.error = err.response?.data?.message || err.message || 'Error'
       } finally {
         this.loading = false
       }
     },
 
     async updateStatus(id, newStatus) {
-      // Simulate status update — Replace with real PUT/PATCH call
-      const appointment = this.appointments.find(a => a.id === id)
-      if (appointment) {
-        appointment.status = newStatus
-      }
+      try {
+        const res = await axios.patch(`/appointments/status/${id}`, {
+          status: newStatus
+        })
 
-      // Optionally call backend to update status
-      // await fetch(`/api/appointments/${id}/status`, {
-      //   method: 'PATCH',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ status: newStatus })
-      // })
+       
+        const appointment = this.appointments.find(a => a.id === id)
+        if (appointment) {
+          appointment.status = res.data.status  
+        }
+      } catch (err) {
+        console.error('Failed to update status:', err)
+        this.error = err.response?.data?.message || err.message || 'Update failed'
+      }
     }
   }
 })

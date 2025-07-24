@@ -5,6 +5,7 @@ import OtpView from '@/views/OtpView.vue'
 import SignUpView from '@/views/SignUpView.vue'
 import StaffDashboardView from '@/views/StaffDashboardView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { jwtDecode } from 'jwt-decode'
 
 
 const router = createRouter({
@@ -54,23 +55,6 @@ router.beforeEach((to, from, next) => {
   console.log(token)
   if (!token && to.meta.requiresAuth) {
     return next('/login')
-  }
-
-  if (token) {
-    const decoded = jwtDecode(token)
-
-    if (to.path === '/staff' && decoded.role !== 'staff') {
-      return next('/dashboard')  // redirect non-staff
-    }
-
-    if (to.path === '/dashboard' && decoded.role !== 'customer') {
-      return next('/staff') // redirect staff away from customer dashboard
-    }
-
-    if(to.path === '/admin' && decoded.role !== ' admin')
-    {
-      return next('dashboard')
-    }
   }
 
   next()

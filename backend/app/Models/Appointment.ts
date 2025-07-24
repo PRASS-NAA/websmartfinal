@@ -9,19 +9,16 @@ export default class Appointment extends BaseModel {
   public aId: number
 
   @column()
-  public userId: number
+  public serviceId: number
 
   @column()
-  public sId: number
+  public vehicleId: number
 
   @column()
-  public vId: number
+  public technicianId: number
 
   @column()
-  public tId: number
-
-  @column()
-  public dateBooked: Date
+  public bookingDate: Date
 
   @column()
   public status: string

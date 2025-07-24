@@ -16,7 +16,7 @@ const submitForm = () => {
     return
   }
 
-  // Later: send appointment request to backend
+
   console.log('Selected service ID:', selectedServiceId.value)
   console.log('Entered vehicle ID:', vehicleId.value)
 }

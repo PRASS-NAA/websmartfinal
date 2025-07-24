@@ -1,4 +1,4 @@
-// stores/serviceStore.ts
+
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
@@ -20,7 +20,8 @@ export const useServiceStore = defineStore('service', {
     async addService(payload) {
       try {
         const res = await axios.post('http://localhost:3333/services', payload)
-        this.services.push(res.data.data) // append newly added service
+        this.services.push(res.data.data) 
+        window.alert("succesfully added new service")
       } catch (err) {
         console.error('Failed to add service:', err)
       }

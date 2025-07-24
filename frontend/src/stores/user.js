@@ -3,9 +3,8 @@ import axios from 'axios'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    users: [],
     token: null,
-    user: null,
+    email: null,
     role: null,
     pendingSignup: null
   }),
@@ -14,13 +13,19 @@ export const useUserStore = defineStore('user', {
     async login(payload) {
       const res = await axios.post('http://localhost:3333/users/login', payload)
       this.token = res.data.token
-
-      // Decode token to get role
-      const decoded = JSON.parse(atob(this.token.split('.')[1]))
-      this.role = decoded.role
-
-      this.user = { email: payload.email }
       localStorage.setItem('token', this.token)
+
+      // Decode token to get email and role
+      const decoded = JSON.parse(atob(this.token.split('.')[1]))
+      this.email = decoded.email
+      this.role = decoded.role
+    },
+
+    logout() {
+      this.token = null
+      this.email = null
+      this.role = null
+      localStorage.removeItem('token')
     },
 
     setRole(role) {
@@ -31,7 +36,7 @@ export const useUserStore = defineStore('user', {
       const res = await axios.post('http://localhost:3333/users/send-otp', payload)
       this.pendingSignup = {
         ...payload,
-        generatedOtp: res.data.otp // remove in prod
+        generatedOtp: res.data.otp // remove this in prod
       }
     },
 
@@ -42,23 +47,9 @@ export const useUserStore = defineStore('user', {
         throw new Error('OTP verification failed')
       }
 
-      this.user = res.data.user
       this.token = null
       this.pendingSignup = null
       localStorage.removeItem('token')
-    },
-
-    async fetchAllUsers() {
-      try {
-        const res = await axios.get('http://localhost:3333/users', {
-          headers: {
-            Authorization: `Bearer ${this.token}`
-          }
-        })
-        this.users = res.data.users
-      } catch (err) {
-        console.error('Failed to fetch users:', err)
-      }
     }
   }
 })

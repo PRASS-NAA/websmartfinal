@@ -19,6 +19,7 @@ export default class ServicesController {
 
   public async store ({request, response}){
     try{
+      console.log("req comes")
       const payload = await request.validate(AddserviceValidator);
 
       const serv = await ServicesRepository.addService(payload);

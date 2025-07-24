@@ -1,12 +1,13 @@
 <script setup>
 import { onMounted } from 'vue'
-import { useGarageAppointments } from '@/stores/garageAppointments'
+import { useGarageAppointments } from '../stores/staff'
 import GarageAppCard from './GarageAppCard.vue'
 
 const store = useGarageAppointments()
 
 onMounted(() => {
   store.fetchAll()
+  //console.log(store.appointments)
 })
 </script>
 

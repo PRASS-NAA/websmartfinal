@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useServiceStore } from '@/stores/serviceStore'
+import { useServiceStore } from '../stores/services'
 
 const serviceStore = useServiceStore()
 
@@ -20,7 +20,7 @@ const submitForm = async () => {
     description: description.value,
   })
 
-  // Clear form after successful submission
+
   name.value = ''
   price.value = ''
   description.value = ''

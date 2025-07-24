@@ -1,5 +1,5 @@
 <script setup>
-import { useGarageAppointments } from '@/stores/garageAppointments'
+import { useGarageAppointments } from '../stores/staff'
 
 const props = defineProps(['appointment'])
 const store = useGarageAppointments()

@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import axios from 'axios'
+import { useUserStore } from './user' 
 
 export const useUserAppointments = defineStore('userAppointments', {
   state: () => ({
@@ -12,15 +14,26 @@ export const useUserAppointments = defineStore('userAppointments', {
       this.loading = true
       this.error = null
 
-      try {
-        
-        const response = await fetch('/api/user/appointments')
-        if (!response.ok) throw new Error('Failed to fetch')
+      const userStore = useUserStore()
+      const email = userStore.user?.email
+      const token = userStore.token
 
-        const data = await response.json()
-        this.appointments = data
-      } catch (err) {
-        this.error = err.message || 'Unknown error'
+      if (!email) {
+        this.error = 'User email not available'
+        this.loading = false
+        return
+      }
+
+      try {
+        const response = await axios.get(`http://localhost:3333/appointments/${email}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+
+        this.appointments = response.data
+      } catch (error) {
+        this.error = error.response?.data?.message || error.message || 'Unknown error'
       } finally {
         this.loading = false
       }

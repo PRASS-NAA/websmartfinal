@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive } from 'vue'
-import { useUserStore } from '../stores/user'  // your Pinia store
+import { useUserStore } from '../stores/user'  
 import { useRouter } from 'vue-router'
 import { jwtDecode } from 'jwt-decode'
 
@@ -83,10 +83,10 @@ const userLogin = async () => {
       return
     }
 
-    // Optional: set role globally
+   
     userStore.setRole(decoded.role)
 
-    // Navigate based on role
+  
     if (decoded.role === 'staff') {
       router.push('/staff')
     } else if(decoded.role === 'customer'){

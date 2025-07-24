@@ -16,7 +16,7 @@ export default class Vehicle extends BaseModel {
   public modelName: string
 
   @column()
-  public owner: number // user ID
+  public oId: number // user ID
 
   @belongsTo(() => User, { foreignKey: 'id' })
   public user: BelongsTo<typeof User>
