@@ -12,7 +12,8 @@ export default class ServicesRepository
     const newService = await Service.create({
       name: payload.name,
       price: payload.price,
-      description: payload.description
+      description: payload.description,
+      technicianId: payload.technician_id
     })
 
     return newService

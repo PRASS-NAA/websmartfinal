@@ -1,13 +1,32 @@
 <script setup>
 import { useUserAppointments } from '../stores/userAppointments'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import AppointmentCard from './AppointmentCard.vue'
+import MakeAppointmentComp from './MakeAppointmentComp.vue';
 
 const store = useUserAppointments()
 
+const showModal = ref(false);
+
 onMounted(() => {
   store.fetchAppointments()
+  console.log("plsss : ", store.appointments)
 })
+
+
+const appClick = () =>
+{
+  console.log("bfr ",showModal.value)
+  if(showModal.value)
+  {
+    showModal.value = false;
+  }else{
+    showModal.value = true
+  }
+
+  console.log("after ", showModal.value)
+}
+
 </script>
 
 <template>
@@ -21,6 +40,12 @@ onMounted(() => {
       <AppointmentCard :appointment="appointment" />
     </div>
   </div>
+
+  <button @click="appClick()">
+    make appointment
+  </button>
+
+  <MakeAppointmentComp v-if="showModal"></MakeAppointmentComp>
 </template>
 
 <style scoped>

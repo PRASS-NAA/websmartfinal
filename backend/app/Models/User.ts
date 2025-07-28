@@ -17,7 +17,7 @@ export default class User extends BaseModel {
   @column()
   public role: string
 
-  @hasMany(() => Vehicle, {foreignKey:'id'})
+  @hasMany(() => Vehicle, {foreignKey:'oId'})
   public ownedVehicles : HasMany<typeof Vehicle>
 
   @hasMany(() => Appointment, {foreignKey:'id'})

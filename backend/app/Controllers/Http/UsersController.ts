@@ -34,7 +34,7 @@ export default class UsersController {
     const result = await UserRepository.verifyOtp(payload);
 
     if (!result.success) {
-      return response.status(400).json(result); // BAD REQUEST
+      return response.status(400).json(result);
     }
 
     return response.status(200).json(result);

@@ -1,21 +1,23 @@
-import { schema, CustomMessages,rules } from '@ioc:Adonis/Core/Validator'
+import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class GetAppointmentValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    email: schema.string.optional({}, [
+    status: schema.enum.optional(['pending', 'finished'] as const),
+    email : schema.string.optional({}, [
       rules.email(),
-      rules.exists({table:'users', column:'email'})
+      rules.exists({table:'users', column: 'email'})
     ])
   })
 
-
   public messages: CustomMessages = {
-    'email.email': 'email must be valid email',
-    exists: '{{field}} must exist in {{options.table}}'
+    string: '{{ field }} must be string only ',
+    enum: 'status must be either pending or finished only',
+    email: 'email must be valid email format',
+    exists: '{{ field }} must exist in {{options.table}} table'
   }
 
-  public data = this.ctx.params;
+  public data = this.ctx.request.qs()
 }

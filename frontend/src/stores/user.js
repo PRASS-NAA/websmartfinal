@@ -32,6 +32,11 @@ export const useUserStore = defineStore('user', {
       this.role = role
     },
 
+    setEmail(email)
+    {
+      this.email = email
+    },
+
     async signup(payload) {
       const res = await axios.post('http://localhost:3333/users/send-otp', payload)
       this.pendingSignup = {

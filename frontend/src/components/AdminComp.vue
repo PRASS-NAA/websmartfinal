@@ -7,6 +7,7 @@ const serviceStore = useServiceStore()
 const name = ref('')
 const price = ref('')
 const description = ref('')
+const t_id = ref(0);
 
 const submitForm = async () => {
   if (!name.value || !price.value || !description.value) {
@@ -18,12 +19,14 @@ const submitForm = async () => {
     name: name.value,
     price: parseInt(price.value),
     description: description.value,
+    technician_id: t_id.value
   })
 
 
   name.value = ''
   price.value = ''
   description.value = ''
+  t_id.value = ''
 }
 </script>
 
@@ -45,6 +48,11 @@ const submitForm = async () => {
       <div>
         <label>Description</label>
         <textarea v-model="description"></textarea>
+      </div>
+
+      <div>
+        <label>Techinician ID</label>
+        <textarea v-model="t_id"></textarea>
       </div>
 
       <button type="submit">Add Service</button>

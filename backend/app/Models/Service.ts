@@ -14,6 +14,9 @@ export default class Service extends BaseModel {
   @column()
   public description: string
 
+  @column()
+  public technicianId: number
+
   @hasMany(() => Appointment, { foreignKey: 'service_id' })
   public appointments: HasMany<typeof Appointment>
 }

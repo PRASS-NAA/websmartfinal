@@ -15,7 +15,7 @@ export const useUserAppointments = defineStore('userAppointments', {
       this.error = null
 
       const userStore = useUserStore()
-      const email = userStore.user?.email
+      const email = userStore.email
       const token = userStore.token
 
       if (!email) {
@@ -25,17 +25,40 @@ export const useUserAppointments = defineStore('userAppointments', {
       }
 
       try {
-        const response = await axios.get(`http://localhost:3333/appointments/${email}`, {
+        console.log("im called with email : ", email)
+        const response = await axios.get(`http://localhost:3333/appointments/?email=${email}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         })
 
-        this.appointments = response.data
+        this.appointments = response.data.data || []
       } catch (error) {
         this.error = error.response?.data?.message || error.message || 'Unknown error'
       } finally {
         this.loading = false
+      }
+    },
+
+    async bookAppointment(service_id, vehicle_id) {
+      const userStore = useUserStore()
+      const token = userStore.token
+
+      try {
+        const response = await axios.post(
+          'http://localhost:3333/appointments',
+          { service_id, vehicle_id },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+        this.fetchAppointments()
+        window.alert("appointment succesfull !! ")
+        return response.data
+      } catch (error) {
+        this.error = error.response?.data?.message || error.message || 'Unknown error'
       }
     }
   }

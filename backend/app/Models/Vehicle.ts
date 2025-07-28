@@ -4,7 +4,7 @@ import Appointment from './Appointment'
 
 export default class Vehicle extends BaseModel {
   @column({ isPrimary: true })
-  public vId: number
+  public Id: number
 
   @column()
   public type: string
@@ -15,10 +15,10 @@ export default class Vehicle extends BaseModel {
   @column()
   public modelName: string
 
-  @column()
+  @column({columnName: 'o_id'})
   public oId: number // user ID
 
-  @belongsTo(() => User, { foreignKey: 'id' })
+  @belongsTo(() => User, { foreignKey: 'oId' })
   public user: BelongsTo<typeof User>
 
   @hasMany(() => Appointment, { foreignKey: 'vehicle_id' })

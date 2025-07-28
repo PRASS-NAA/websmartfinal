@@ -6,7 +6,7 @@ import Service from './Service'
 
 export default class Appointment extends BaseModel {
   @column({ isPrimary: true })
-  public aId: number
+  public Id: number
 
   @column()
   public serviceId: number

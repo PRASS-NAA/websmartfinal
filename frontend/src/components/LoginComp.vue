@@ -85,7 +85,7 @@ const userLogin = async () => {
 
    
     userStore.setRole(decoded.role)
-
+    userStore.setEmail(email.value)
   
     if (decoded.role === 'staff') {
       router.push('/staff')
