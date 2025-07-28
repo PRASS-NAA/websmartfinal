@@ -9,15 +9,29 @@ export const useGarageAppointments = defineStore('garageAppointments', {
   }),
 
   actions: {
-    async fetchAll() {
+    async fetchAll(status='') {
       this.loading = true
       this.error = null
+      this.appointments = []
 
       try {
-        console.log("hi")
-        const res = await axios.get('/appointments')
-        this.appointments = res.data
-        console.log("hhhhh", this.appointments)
+        console.log("status = ", status)
+        let url;
+        if(status == '')
+        {
+          url = 'http://localhost:3333/appointments'
+        }else{
+          url = `http://localhost:3333/appointments/?status=${status}`
+        }
+        console.log("url", url)
+        const token = localStorage.getItem('token');
+        const res = await axios.get(url,{
+          headers : {Authorization : `Bearer ${token}`}
+        })
+        console.log("response : ", res.data)
+        this.appointments = res.data.data || []
+    
+        
       } catch (err) {
         this.error = err.response?.data?.message || err.message || 'Error'
       } finally {
@@ -27,15 +41,15 @@ export const useGarageAppointments = defineStore('garageAppointments', {
 
     async updateStatus(id, newStatus) {
       try {
-        const res = await axios.patch(`/appointments/status/${id}`, {
+        const token = localStorage.getItem('token');
+        const res = await axios.patch(`http://localhost:3333/appointments/status/${id}`, {
           status: newStatus
+        },{
+          headers : {Authorization : `Bearer ${token}`}
         })
 
-       
-        const appointment = this.appointments.find(a => a.id === id)
-        if (appointment) {
-          appointment.status = res.data.status  
-        }
+       window.alert("status updated and email sent to customer !! ")
+        this.fetchAll();
       } catch (err) {
         console.error('Failed to update status:', err)
         this.error = err.response?.data?.message || err.message || 'Update failed'

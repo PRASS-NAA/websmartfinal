@@ -101,7 +101,7 @@ const userLogin = async () => {
 </script>
 
 <template>
-  <h1>Login</h1>
+  <h1 class="loginh1">Login</h1>
   <form @submit.prevent="userLogin">
     <div>
       <label>Email</label>
@@ -125,8 +125,58 @@ const userLogin = async () => {
 </template>
 
 <style scoped>
-input {
-  margin-bottom: 5px;
-  display: block;
+
+
+form {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 8px;
+  background-color: white;
 }
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: black;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  color: black;
+}
+
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+button:hover {
+  background-color: #357ae8;
+}
+
+
+p[style*="color:red"] {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
 </style>

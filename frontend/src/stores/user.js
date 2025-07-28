@@ -15,7 +15,7 @@ export const useUserStore = defineStore('user', {
       this.token = res.data.token
       localStorage.setItem('token', this.token)
 
-      // Decode token to get email and role
+      
       const decoded = JSON.parse(atob(this.token.split('.')[1]))
       this.email = decoded.email
       this.role = decoded.role
@@ -36,7 +36,7 @@ export const useUserStore = defineStore('user', {
       const res = await axios.post('http://localhost:3333/users/send-otp', payload)
       this.pendingSignup = {
         ...payload,
-        generatedOtp: res.data.otp // remove this in prod
+        generatedOtp: res.data.otp 
       }
     },
 

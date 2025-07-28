@@ -11,7 +11,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1>Hello Pras</h1>
+  <h1>Hello !! </h1>
   <h3>Your services</h3>
 
   <div v-if="store.loading">Loading...</div>

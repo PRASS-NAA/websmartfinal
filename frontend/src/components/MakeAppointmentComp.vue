@@ -27,7 +27,6 @@ const submitForm = () => {
     <h2>Make Appointment</h2>
 
     <form @submit.prevent="submitForm">
-      <!-- Service Dropdown -->
       <div>
         <label for="service">Select Service</label>
         <select v-model="selectedServiceId" id="service">
@@ -38,13 +37,13 @@ const submitForm = () => {
         </select>
       </div>
 
-      <!-- Vehicle ID Input -->
+      
       <div>
         <label for="vehicleId">Enter Vehicle ID</label>
         <input type="text" id="vehicleId" v-model="vehicleId" />
       </div>
 
-      <!-- Submit -->
+  
       <button type="submit">Book Appointment</button>
     </form>
   </div>

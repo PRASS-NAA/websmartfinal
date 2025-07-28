@@ -101,8 +101,53 @@ const userSignup = async () => {
 </template>
 
 <style scoped>
-input {
-  margin-bottom: 5px;
+form {
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 8px;
+  background-color: white;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  
+}
+
+label {
   display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: black;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 8px 12px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #216db8;
+}
+
+p {
+  margin: 5px 0;
+  font-size: 14px;
 }
 </style>
