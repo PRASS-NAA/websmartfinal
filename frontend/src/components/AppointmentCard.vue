@@ -1,6 +1,31 @@
 <script setup>
 const props = defineProps(['appointment'])
+import { useUserStore } from '@/stores/user'
+import axios from 'axios'
 console.log('Props received in child:', props.appointment)
+
+const openInvoice = async (id) =>
+{
+  try{
+    let userStore = new useUserStore()
+    const token = userStore.token;
+    const res = await axios.get(`http://localhost:3333/appointments/${id}`, {
+      headers : {Authorization : `Bearer ${token}`}
+    })
+    console.log(res);
+    if(res.data.success)
+    {
+      window.open(`http://localhost:3333/Invoices/invoice_${id}.pdf`)
+    }else{
+    window.alert("error generating report !! ")
+    }
+  }catch(err)
+  {
+    console.log(err);
+    window.alert(err)
+  }
+  
+}
 </script>
 
 <template>
@@ -13,6 +38,7 @@ console.log('Props received in child:', props.appointment)
     <h6>Technician ID: {{ appointment.technician_id }}</h6>
     <h6>Status: {{ appointment.status }}</h6>
   </div>
+  <button @click="openInvoice(appointment.id)"> GENERATE INVOICE </button>
 </template>
 
 <style scoped>

@@ -3,6 +3,7 @@ import GetAppointmentValidator from 'App/Validators/appointment/GetAppointmentVa
 import UpdateAppointmentValidator from 'App/Validators/appointment/UpdateAppointmentValidator'
 import AppointmentsRepository from 'App/Repository/AppointmentsRepository'
 import CreateAppointmentValidator from 'App/Validators/appointment/CreateAppointmentValidator'
+import GetbyidValidator from 'App/Validators/appointment/GetbyidValidator'
 
 export default class AppointmentsController {
   public async index({ request, response }: HttpContextContract) {
@@ -59,6 +60,24 @@ export default class AppointmentsController {
         location: 'AppointmentsController - store ',
         success: false,
         message: 'Failed to add appointment',
+      })
+    }
+  }
+
+  public async show({request, response} : HttpContextContract)
+  {
+    try{
+      const { id } = await request.validate(GetbyidValidator);
+
+      const appointmentPDF = await AppointmentsRepository.getPDF(id);
+
+      return response.status(200).json({data:appointmentPDF, success: true});
+    }catch(err)
+    {
+      throw Object.assign(err, {
+        location: 'AppointmentsController - show ',
+        success: false,
+        message: 'Failed to get appointment by id ',
       })
     }
   }
