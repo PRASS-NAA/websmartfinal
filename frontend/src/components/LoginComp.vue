@@ -101,7 +101,8 @@ const userLogin = async () => {
 </script>
 
 <template>
-  <h1 class="loginh1">Login</h1>
+  <div id="main-cont">
+    <h1 class="loginh1">Login</h1>
   <form @submit.prevent="userLogin">
     <div>
       <label>Email</label>
@@ -122,6 +123,7 @@ const userLogin = async () => {
       <button type="submit">Login Now</button>
     </div>
   </form>
+  </div>
 </template>
 
 <style scoped>
@@ -139,6 +141,7 @@ form {
 h1 {
   text-align: center;
   margin-bottom: 20px;
+  background-color: blue;
 }
 
 label {
@@ -177,6 +180,15 @@ button:hover {
 p[style*="color:red"] {
   font-size: 14px;
   margin: 5px 0;
+}
+
+#main-cont{
+  border: 3px solid black;
+    width: 397px;
+    position: relative;
+    left: 749px;
+    height: 383px;
+    top: 252px;
 }
 
 </style>

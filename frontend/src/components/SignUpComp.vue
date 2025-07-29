@@ -77,7 +77,8 @@ const userSignup = async () => {
 </script>
 
 <template>
-  <h1>Signup</h1>
+  <div id="main-cont">
+    <h1>Signup</h1>
   <form @submit.prevent="userSignup">
     <div>
       <label>Email</label>
@@ -98,9 +99,19 @@ const userSignup = async () => {
       <button type="submit">Signup Now</button>
     </div>
   </form>
+  </div>
 </template>
 
 <style scoped>
+
+#main-cont{
+  border: 3px solid black;
+    width: 397px;
+    position: relative;
+    left: 749px;
+    height: 383px;
+    top: 252px;
+}
 form {
   max-width: 400px;
   margin: 30px auto;
@@ -113,7 +124,7 @@ form {
 h1 {
   text-align: center;
   margin-bottom: 20px;
-  
+  background-color: blue;
 }
 
 label {

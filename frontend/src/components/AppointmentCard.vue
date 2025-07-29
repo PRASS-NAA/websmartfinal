@@ -29,7 +29,7 @@ const openInvoice = async (id) =>
 </script>
 
 <template>
-  <div>
+  <div >
     <h3>Appointment ID: {{ appointment.id }}</h3>
   </div>
   <div>
@@ -37,28 +37,29 @@ const openInvoice = async (id) =>
     <h6>Vehicle ID: {{ appointment.vehicle_id }}</h6>
     <h6>Technician ID: {{ appointment.technician_id }}</h6>
     <h6>Status: {{ appointment.status }}</h6>
+    <button @click="openInvoice(appointment.id)"> GENERATE INVOICE </button>
   </div>
-  <button @click="openInvoice(appointment.id)"> GENERATE INVOICE </button>
+  
 </template>
 
 <style scoped>
 div {
-  border: 1px solid #ccc;
-  padding: 12px;
+  border: 1px solid black;
+  padding: 24px;
   margin: 10px auto;
   width: 300px;
   border-radius: 6px;
-  background-color: #f9f9f9;
+  background-color: dimgray;
   font-family: 'Arial', sans-serif;
 }
 
 h3 {
-  color: #333;
+  color: white;
   margin-bottom: 10px;
 }
 
 h6 {
-  color: #555;
+  color: white;
   margin: 4px 0;
   font-size: 16px;
 }
